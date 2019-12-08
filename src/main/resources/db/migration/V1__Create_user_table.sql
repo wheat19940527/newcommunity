@@ -1,14 +1,3 @@
-##community
-
-##url
-[spring doc](https://spring.io/guides)
-
-
-##tool
-
-
-##script
-'''sql
 create table USER
 (
     ID         INTEGER auto_increment,
@@ -20,5 +9,3 @@ create table USER
     constraint USER_PK
         primary key (ID)
 );
-
-'''

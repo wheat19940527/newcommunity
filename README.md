@@ -22,3 +22,10 @@ create table USER
 );
 
 '''
+
+'''bash
+mvn flyway:migrate
+'''
+
+
+https://flywaydb.org/getstarted/firststeps/maven

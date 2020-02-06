@@ -4,9 +4,10 @@ import com.mqm.community.exception.CustomizeErrorCode;
 import com.mqm.community.exception.CustomizeException;
 import org.springframework.web.servlet.ModelAndView;
 
-public class ResultDTO {
+public class ResultDTO<T> {
     private String message;
     private Integer code;
+    private T data;
 
 
 
@@ -21,6 +22,14 @@ public class ResultDTO {
         ResultDTO resultDTO = new ResultDTO();
         resultDTO.setCode(200);
         resultDTO.setMessage("Request success!");
+        return resultDTO;
+    }
+
+    public static <T> ResultDTO okOf(T t){
+        ResultDTO resultDTO = new ResultDTO();
+        resultDTO.setCode(200);
+        resultDTO.setMessage("Request success!");
+        resultDTO.setData(t);
         return resultDTO;
     }
 
@@ -48,5 +57,11 @@ public class ResultDTO {
         this.code = code;
     }
 
+    public T getData() {
+        return data;
+    }
 
+    public void setData(T data) {
+        this.data = data;
+    }
 }

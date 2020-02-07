@@ -95,4 +95,17 @@ body{
 .question_title{
     margin-top: 25px;
 }
+.question-tag{
+    margin-right: 5px;
+}
 
+.question-related{
+    line-height: 20px;
+    margin-left: 0;
+    padding-left: 0;
+    font-size: 12px;
+    list-style: none;
+}
+.question-wechat{
+    width: 100% ;
+}

@@ -4,10 +4,7 @@ import com.mqm.community.dto.CommentDTO;
 import com.mqm.community.enums.CommentTypeEnum;
 import com.mqm.community.exception.CustomizeErrorCode;
 import com.mqm.community.exception.CustomizeException;
-import com.mqm.community.mapper.CommentMapper;
-import com.mqm.community.mapper.QuestionExtMapper;
-import com.mqm.community.mapper.QuestionMapper;
-import com.mqm.community.mapper.UserMapper;
+import com.mqm.community.mapper.*;
 import com.mqm.community.model.*;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +32,9 @@ public class CommentService {
     @Autowired
     private UserMapper userMapper;
 
+    @Autowired
+    private CommentExtMapper commentExtMapper;
+
     @Transactional
     public void insert(Comment comment) {
         if(comment.getParentId() == null || comment.getParentId() == 0){
@@ -50,6 +50,11 @@ public class CommentService {
                 throw new CustomizeException(CustomizeErrorCode.COMMENT_NOT_FOUND);
             }
             commentMapper.insert(comment);
+            //增加评论的评论数
+            Comment parentComment = new Comment();
+            parentComment.setId(comment.getParentId());
+            parentComment.setCommentCount(1);
+            commentExtMapper.incCommentCount(parentComment);
         }else{
             //reply question
             Question question = questionMapper.selectByPrimaryKey(comment.getParentId());
@@ -67,7 +72,7 @@ public class CommentService {
         CommentExample commentExample = new CommentExample();
         commentExample.createCriteria()
                 .andParentIdEqualTo(id)
-                .andTypeEqualTo(type.getType());
+                .andTypeEqualTo(type.getType() );
         commentExample.setOrderByClause("gmt_create desc");
         List<Comment> comments = commentMapper.selectByExample(commentExample);
         if(comments.size() == 0){

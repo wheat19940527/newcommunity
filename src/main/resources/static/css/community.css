@@ -26,7 +26,6 @@ body{
     margin-top: 15px;
 }
 .community-menu{
-    display: block;
     color:#999;
     font-size: 13px;
     margin-bottom: 15px;
@@ -138,4 +137,10 @@ body{
     white-space: normal;
     margin: 5px 5px;
     display: inline-block;
+}
+.footer {
+    text-align: center;
+    font-size: 12px;
+    color: #666;;
+    padding: 0 0 15px 0;
 }

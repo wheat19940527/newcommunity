@@ -24,19 +24,19 @@ public class PublishController {
     private QuestionService questionService;
 
     @GetMapping("/publish/{id}")
-    public String edit(@PathVariable(name = "id")Long id,
-                       Model model){
+    public String edit(@PathVariable(name = "id") Long id,
+                       Model model) {
         QuestionDTO question = questionService.getById(id);
         model.addAttribute("title", question.getTitle());
-        model.addAttribute("tag",question.getTag());
-        model.addAttribute("description",question.getDescription());
-        model.addAttribute("id",question.getId());
+        model.addAttribute("tag", question.getTag());
+        model.addAttribute("description", question.getDescription());
+        model.addAttribute("id", question.getId());
         model.addAttribute("tags", TagCache.get());
         return "publish";
     }
 
     @GetMapping("/publish")
-    public String publish(Model model){
+    public String publish(Model model) {
         model.addAttribute("tags", TagCache.get());
         return "publish";
     }
@@ -48,48 +48,33 @@ public class PublishController {
             @RequestParam(value = "tag", required = false) String tag,
             @RequestParam(value = "id", required = false) Long id,
             HttpServletRequest request,
-            Model model){
+            Model model) {
 
         model.addAttribute("title", title);
         model.addAttribute("description", description);
         model.addAttribute("tag", tag);
         model.addAttribute("tags", TagCache.get());
 
-        if(title == null || title == ""){
+        if (title == null || title == "") {
             model.addAttribute("error", "title can not be null");
             return "publish";
         }
-        if(description == null||description==""){
+        if (description == null || description == "") {
             model.addAttribute("error", "description can not be null");
             return "publish";
         }
-        if(tag == null||tag == ""){
+        if (tag == null || tag == "") {
             model.addAttribute("error", "tag can not be null");
             return "publish";
         }
         String invalid = TagCache.filterInvalid(tag);
-        if(StringUtils.isNotBlank(invalid)){
-            model.addAttribute("error","input invalid tag: " + invalid);
+        if (StringUtils.isNotBlank(invalid)) {
+            model.addAttribute("error", "input invalid tag: " + invalid);
             return "publish";
         }
-
-//        User user = null;
-//        Cookie[] cookies = request.getCookies();
-//        if(cookies != null && cookies.length!=0)
-//        for (Cookie cookie: cookies){
-//            if(cookie.getName().equals("token"))
-//            {
-//                String token = cookie.getValue();
-//                user = userMapper.findByToken(token);
-//                if(user != null){
-//                    request.getSession().setAttribute("user",user);
-//                }
-//                break;
-//            }
-//        }
         User user = (User) request.getSession().getAttribute("user");
-        if(user == null){
-            model.addAttribute("error","no user login!");
+        if (user == null) {
+            model.addAttribute("error", "no user login!");
             return "publish";
         }
         Question question = new Question();

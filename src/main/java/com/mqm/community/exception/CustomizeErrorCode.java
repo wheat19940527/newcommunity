@@ -7,7 +7,9 @@ public enum CustomizeErrorCode implements ICustomizeErrorCode {
     SYS_ERROR(2004,"Server shutdown, please try it later."),
     TYPE_PARAN_WRONG(2005,"comment type wrong or not exist"),
     COMMENT_NOT_FOUND(2006,"comment not found"),
-    CONTENT_IS_EMPTY(2007,"input content cannot be null");
+    CONTENT_IS_EMPTY(2007,"input content cannot be null"),
+    NOTIFICATION_NOT_FOUND(2008,"notification is not exist"),
+    READ_NOTIFICATION_FAIL(2009,"this is not your notification");
 
 
 

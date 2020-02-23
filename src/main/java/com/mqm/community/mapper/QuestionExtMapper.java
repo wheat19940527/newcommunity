@@ -1,5 +1,6 @@
 package com.mqm.community.mapper;
 
+import com.mqm.community.dto.QuestionQueryDTO;
 import com.mqm.community.model.Question;
 import com.mqm.community.model.QuestionExample;
 import org.apache.ibatis.annotations.Param;
@@ -13,4 +14,8 @@ public interface QuestionExtMapper {
     int incCommentCount(Question record);
 
     List<Question> selectRelated(Question question);
+
+    Integer countBySearch(QuestionQueryDTO questionQueryDTO);
+
+    List<Question> selectBySearch(QuestionQueryDTO questionQueryDTO);
 }
